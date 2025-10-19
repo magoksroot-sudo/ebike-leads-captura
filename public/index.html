@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBikePro - Reparación de Bicicletas Eléctricas</title>
+    <style>
+        :root {
+            --primary: #00D166;
+            --secondary: #0066CC;
+            --accent: #FF6600;
+            --dark: #333333;
+            --light: #F8F9FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #E8F4FD 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        h1 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 28px;
+            line-height: 1.3;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .benefits {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .benefit {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            font-size: 15px;
+        }
+        
+        .benefit-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            min-width: 40px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        input[type="email"] {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="email"]:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 209, 102, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #E55A00;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .privacy {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔧</div>
+        
+        <h1>¿Problemas con la Batería de tu eBike?</h1>
+        <p class="subtitle">Guía GRATIS: Soluciona los 3 problemas más comunes en minutos</p>
+        
+        <div class="benefits">
+            <div class="benefit">
+                <span class="benefit-icon">🔋</span>
+                <span><strong>Diagnóstico Rápido</strong> - Identifica el problema en 5 minutos</span>
+            </div>
+            <div class="benefit">
+                <span class="benefit-icon">💡</span>
+                <span><strong>Soluciones Paso a Paso</strong> - Sin conocimientos técnicos</span>
+            </div>
+            <div class="benefit">
+                <span class="benefit-icon">💰</span>
+                <span><strong>Ahorra Dinero</strong> - Evita reparaciones costosas</span>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✅ ¡Gracias! Descargando tu guía GRATIS...
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            ❌ Error al procesar
+        </div>
+
+        <form id="leadForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="consent" required>
+                <label for="consent">
+                    Sí, quiero recibir consejos de mantenimiento, ofertas especiales 
+                    y contenido educativo. Puedo darme de baja cuando quiera.
+                </label>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                🚀 Obtener Mi Guía GRATIS
+            </button>
+        </form>
+        
+        <div class="privacy">
+            🔒 Respetamos tu privacidad. No spam, nunca.
+        </div>
+    </div>
+
+    <script>
+        // ✅ URL DE TU GOOGLE APPS SCRIPT - ESTA SÍ FUNCIONARÁ CON NODE.JS
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhj5H6f_Amn-0GGUyhuQWUt3nKoRZQ1CC7NR2vOW4tegMBxXDGs6EjpzCaGcN8Y3ND/exec';
+
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const consent = document.getElementById('consent').checked;
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Ocultar mensajes
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Validación
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = '❌ Por favor, ingresa un email válido';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            if (!consent) {
+                errorMessage.textContent = '❌ Debes aceptar recibir notificaciones para descargar la guía';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Deshabilitar botón
+            submitBtn.disabled = true;
+            submitBtn.textContent = '🔄 Guardando en Google Sheets...';
+
+            try {
+                console.log('📤 Enviando datos desde Node.js...');
+                
+                // 📤 ESTO SÍ FUNCIONARÁ CON NODE.JS
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        consent: consent
+                    })
+                });
+
+                console.log('✅ Respuesta:', response.status);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('📋 Google Sheets:', result);
+                    
+                    successMessage.style.display = 'block';
+                    successMessage.innerHTML = '✅ <strong>¡Perfecto!</strong><br>Email guardado en Google Sheets';
+                    
+                    // Descargar PDF
+                    setTimeout(() => {
+                        window.open('https://drive.google.com/file/d/TU_ID_DEL_PDF/view', '_blank');
+                    }, 1500);
+                    
+                    document.getElementById('leadForm').reset();
+                    
+                } else {
+                    throw new Error('Error: ' + response.status);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = '❌ Error de conexión: ' + error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Obtener Mi Guía GRATIS';
+            }
+        });
+
+        // Validación en tiempo real
+        function updateButtonState() {
+            const email = document.getElementById('email').value;
+            const consent = document.getElementById('consent').checked;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            submitBtn.disabled = !(email && consent);
+        }
+
+        document.getElementById('consent').addEventListener('change', updateButtonState);
+        document.getElementById('email').addEventListener('input', updateButtonState);
+
+        updateButtonState();
+    </script>
+</body>
+</html>
